@@ -9,6 +9,7 @@ import Booking from "./pages/Booking";
 import Reports from "./pages/Reports";
 import Notifications from "./pages/Notifications";
 import Maintenance from "./pages/Maintenance";
+import Audit from "./pages/Audit";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/maintenance" element={<Maintenance />} />
         <Route path="/reports" element={<Reports />} />
         <Route path="/notifications" element={<Notifications />} />
+        <Route path="/audit" element={<Audit />} />
       </Routes>
     </BrowserRouter>
   );

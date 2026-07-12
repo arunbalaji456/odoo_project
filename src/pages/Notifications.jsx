@@ -1,105 +1,108 @@
 import { useState } from "react";
+import { Bell, CalendarClock, CheckCircle2, AlertTriangle, ArrowLeftRight, CheckCheck } from "lucide-react";
+import Layout from "../components/Layout";
+import "./Notifications.css";
 
-const allNotifications = [
-  { id: 1, type: "Bookings", text: "Laptop AF-0014 assigned to Priya Shah", time: "2m ago" },
-  { id: 2, type: "Approvals", text: "Maintenance request AF-0055 approved", time: "18m ago" },
-  { id: 3, type: "Bookings", text: "Booking confirmed: Room B2, 2:00 to 3:00 PM", time: "1h ago" },
-  { id: 4, type: "Approvals", text: "Transfer approved: AF-0033 to Facilities dept", time: "3h ago" },
-  { id: 5, type: "Alerts", text: "Overdue return: AF-0021", time: "1d ago" },
-  { id: 6, type: "Alerts", text: "Audit discrepancy flagged: AF-0088 damaged", time: "2d ago" },
+const initialNotifications = [
+  { id: 1, type: "Bookings", text: "Laptop AF-0014 assigned to Priya Shah", time: "2m ago", read: false },
+  { id: 2, type: "Approvals", text: "Maintenance request AF-0055 approved", time: "18m ago", read: false },
+  { id: 3, type: "Bookings", text: "Booking confirmed: Room B2, 2:00 to 3:00 PM", time: "1h ago", read: false },
+  { id: 4, type: "Approvals", text: "Transfer approved: AF-0033 to Facilities dept", time: "3h ago", read: true },
+  { id: 5, type: "Alerts", text: "Overdue return: AF-0021", time: "1d ago", read: true },
+  { id: 6, type: "Alerts", text: "Audit discrepancy flagged: AF-0088 damaged", time: "2d ago", read: true },
 ];
 
 const tabs = ["All", "Alerts", "Approvals", "Bookings"];
 
+const typeIcon = {
+  Alerts: AlertTriangle,
+  Approvals: CheckCircle2,
+  Bookings: CalendarClock,
+};
+
 export default function Notifications() {
+  const [notifications, setNotifications] = useState(initialNotifications);
   const [activeTab, setActiveTab] = useState("All");
 
   const filtered =
-    activeTab === "All" ? allNotifications : allNotifications.filter((n) => n.type === activeTab);
+    activeTab === "All" ? notifications : notifications.filter((n) => n.type === activeTab);
+
+  const unreadCount = notifications.filter((n) => !n.read).length;
+
+  const countFor = (tab) =>
+    tab === "All" ? notifications.length : notifications.filter((n) => n.type === tab).length;
+
+  const markAsRead = (id) => {
+    setNotifications((prev) => prev.map((n) => (n.id === id ? { ...n, read: true } : n)));
+  };
+
+  const markAllRead = () => {
+    setNotifications((prev) => prev.map((n) => ({ ...n, read: true })));
+  };
 
   return (
-    <div style={{ display: "flex" }}>
-      <Sidebar active="Notifications" />
-      <div style={{ flex: 1, padding: 24 }}>
-        <h2>AssetFlow</h2>
+    <Layout>
+      <div className="notif">
+        <div className="notif-head">
+          <div>
+            <h1>Notifications</h1>
+            <p>
+              {unreadCount > 0
+                ? `${unreadCount} unread notification${unreadCount > 1 ? "s" : ""}`
+                : "You're all caught up"}
+            </p>
+          </div>
+          {unreadCount > 0 && (
+            <button className="notif-mark-all" onClick={markAllRead}>
+              <CheckCheck size={14} /> Mark all read
+            </button>
+          )}
+        </div>
 
-        <div style={{ display: "flex", gap: 8, marginTop: 16 }}>
+        <div className="notif-tabs">
           {tabs.map((tab) => (
             <button
               key={tab}
+              className={`notif-tab ${activeTab === tab ? "active" : ""}`}
               onClick={() => setActiveTab(tab)}
-              style={{
-                padding: "6px 14px",
-                borderRadius: 20,
-                border: "1px solid #ddd",
-                background: activeTab === tab ? "#d7f5e9" : "#fff",
-                cursor: "pointer",
-              }}
             >
               {tab}
+              <span className="notif-tab-count">{countFor(tab)}</span>
             </button>
           ))}
         </div>
 
-        <div style={{ marginTop: 20 }}>
-          {filtered.map((n) => (
-            <div
-              key={n.id}
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                padding: "10px 0",
-                borderBottom: "1px solid #f0f0f0",
-              }}
-            >
-              <span style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                <span
-                  style={{
-                    width: 8,
-                    height: 8,
-                    borderRadius: "50%",
-                    background: n.type === "Alerts" ? "#e57373" : "#90caf9",
-                    display: "inline-block",
-                  }}
-                />
-                {n.text}
-              </span>
-              <span style={{ color: "#999", fontSize: 12 }}>{n.time}</span>
+        <div className="notif-card">
+          {filtered.length === 0 ? (
+            <div className="notif-empty">
+              <Bell size={22} />
+              <p>No notifications in this category.</p>
             </div>
-          ))}
+          ) : (
+            <ul className="notif-list">
+              {filtered.map((n) => {
+                const Icon = typeIcon[n.type] || Bell;
+                return (
+                  <li
+                    key={n.id}
+                    className={n.read ? "" : "unread"}
+                    onClick={() => markAsRead(n.id)}
+                  >
+                    <span className={`notif-icon type-${n.type.toLowerCase()}`}>
+                      <Icon size={14} />
+                    </span>
+                    <span className="notif-text">{n.text}</span>
+                    <span className="notif-meta">
+                      {!n.read && <span className="unread-dot" />}
+                      <span className="notif-time">{n.time}</span>
+                    </span>
+                  </li>
+                );
+              })}
+            </ul>
+          )}
         </div>
       </div>
-    </div>
-  );
-}
-
-function Sidebar({ active }) {
-  const items = [
-    "Dashboard",
-    "Organization setup",
-    "Assets",
-    "Allocation & Transfer",
-    "Resource Booking",
-    "Maintenance",
-    "Audit",
-    "Reports",
-    "Notifications",
-  ];
-  return (
-    <div style={{ width: 180, borderRight: "1px solid #eee", padding: 16 }}>
-      {items.map((item) => (
-        <p
-          key={item}
-          style={{
-            padding: "6px 8px",
-            borderRadius: 6,
-            background: item === active ? "#d7f5e9" : "transparent",
-            fontWeight: item === active ? 600 : 400,
-          }}
-        >
-          {item}
-        </p>
-      ))}
-    </div>
+    </Layout>
   );
 }

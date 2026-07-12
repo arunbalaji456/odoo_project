@@ -1,0 +1,127 @@
+.reports {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.reports-head h1 {
+  margin: 0;
+  font-size: 26px;
+  background: linear-gradient(135deg, #3a3f8c, #7c5cf0);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.reports-head p {
+  margin: 4px 0 0;
+  color: #7a7a8c;
+  font-size: 13.5px;
+}
+
+.reports-chart-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.chart-card {
+  background: #fff;
+  border-radius: 18px;
+  padding: 18px 20px;
+  box-shadow: 0 8px 30px rgba(58, 63, 140, 0.08);
+}
+
+.chart-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  color: #3a3f8c;
+  font-size: 13.5px;
+  margin-bottom: 14px;
+}
+
+.bar-chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 14px;
+  height: 140px;
+}
+
+.bar-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.bar {
+  width: 100%;
+  border-radius: 6px 6px 0 0;
+  background: linear-gradient(180deg, #7c5cf0, #3a3f8c);
+  margin-bottom: 6px;
+}
+
+.bar-col span {
+  font-size: 11px;
+  color: #9a9aa5;
+}
+
+.reports-list-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.list-card {
+  background: #fff;
+  border-radius: 18px;
+  padding: 18px 20px;
+  box-shadow: 0 8px 30px rgba(58, 63, 140, 0.08);
+}
+
+.list-card h2 {
+  margin: 0 0 10px;
+  font-size: 15px;
+  color: #26264a;
+}
+
+.list-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid #f0f0f7;
+  font-size: 13.5px;
+  color: #44445c;
+}
+
+.list-row:last-child { border-bottom: none; }
+
+.list-detail { color: #9a9aa5; }
+
+.qa-btn {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: 10px;
+  border: 1px solid #e3e3ef;
+  background: #fff;
+  color: #3a3f8c;
+  font-weight: 600;
+  font-size: 13.5px;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.qa-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(58, 63, 140, 0.15);
+}
+
+@media (max-width: 900px) {
+  .reports-chart-grid, .reports-list-grid { grid-template-columns: 1fr; }
+}

@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { BarChart3, TrendingUp, Download } from "lucide-react";
+import Layout from "../components/Layout";
+import "./Reports.css";
 
 const utilizationData = [
   { dept: "Engineering", value: 82 },
@@ -7,7 +9,7 @@ const utilizationData = [
   { dept: "HR", value: 30 },
 ];
 
-const maintenanceTrend = [12, 18, 15, 22, 28, 25, 34]; // last 7 weeks
+const maintenanceTrend = [12, 18, 15, 22, 28, 25, 34];
 
 const mostUsed = [
   { name: "Room B2", detail: "34 bookings this month" },
@@ -30,10 +32,7 @@ export default function Reports() {
   const maxTrend = Math.max(...maintenanceTrend);
 
   const handleExport = () => {
-    const rows = [
-      ["Department", "Utilization %"],
-      ...utilizationData.map((d) => [d.dept, d.value]),
-    ];
+    const rows = [["Department", "Utilization %"], ...utilizationData.map((d) => [d.dept, d.value])];
     const csv = rows.map((r) => r.join(",")).join("\n");
     const blob = new Blob([csv], { type: "text/csv" });
     const url = URL.createObjectURL(blob);
@@ -44,114 +43,74 @@ export default function Reports() {
   };
 
   return (
-    <div style={{ display: "flex" }}>
-      <Sidebar active="Reports" />
-      <div style={{ flex: 1, padding: 24 }}>
-        <h2>AssetFlow</h2>
+    <Layout>
+      <div className="reports">
+        <div className="reports-head">
+          <h1>Reports &amp; Analytics</h1>
+          <p>Utilization, maintenance frequency, and operational insight</p>
+        </div>
 
-        <div style={{ display: "flex", gap: 20, marginTop: 20 }}>
-          {/* Utilization by department */}
-          <div style={{ flex: 1, background: "#e8f0ff", borderRadius: 12, padding: 16 }}>
-            <p style={{ fontWeight: 600, marginBottom: 12 }}>Utilization by department</p>
-            <div style={{ display: "flex", alignItems: "flex-end", gap: 12, height: 140 }}>
+        <div className="reports-chart-grid">
+          <div className="chart-card">
+            <div className="chart-head"><BarChart3 size={15} /> Utilization by department</div>
+            <div className="bar-chart">
               {utilizationData.map((d) => (
-                <div key={d.dept} style={{ textAlign: "center", flex: 1 }}>
-                  <div
-                    style={{
-                      height: `${(d.value / maxUtil) * 100}px`,
-                      background: "#f4d35e",
-                      borderRadius: 6,
-                      marginBottom: 6,
-                    }}
-                  />
-                  <span style={{ fontSize: 11 }}>{d.dept}</span>
+                <div className="bar-col" key={d.dept}>
+                  <div className="bar" style={{ height: `${(d.value / maxUtil) * 100}px` }} />
+                  <span>{d.dept}</span>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Maintenance frequency */}
-          <div style={{ flex: 1, background: "#e8f0ff", borderRadius: 12, padding: 16 }}>
-            <p style={{ fontWeight: 600, marginBottom: 12 }}>Maintenance Frequency</p>
+          <div className="chart-card">
+            <div className="chart-head"><TrendingUp size={15} /> Maintenance Frequency</div>
             <svg width="100%" height="140" viewBox="0 0 280 140">
               <polyline
                 fill="none"
-                stroke="#d9534f"
-                strokeWidth="2"
-                points={maintenanceTrend
-                  .map((v, i) => `${i * 45},${140 - (v / maxTrend) * 130}`)
-                  .join(" ")}
+                stroke="#7c5cf0"
+                strokeWidth="2.5"
+                points={maintenanceTrend.map((v, i) => `${i * 45},${140 - (v / maxTrend) * 130}`).join(" ")}
               />
             </svg>
           </div>
         </div>
 
-        <div style={{ display: "flex", gap: 20, marginTop: 24 }}>
-          <div style={{ flex: 1 }}>
-            <p style={{ fontWeight: 600 }}>Most used assets</p>
+        <div className="reports-list-grid">
+          <div className="list-card">
+            <h2>Most used assets</h2>
             {mostUsed.map((a) => (
-              <p key={a.name} style={{ fontSize: 13, color: "#555" }}>
-                {a.name}: {a.detail}
-              </p>
+              <div className="list-row" key={a.name}>
+                <span>{a.name}</span>
+                <span className="list-detail">{a.detail}</span>
+              </div>
             ))}
           </div>
-          <div style={{ flex: 1 }}>
-            <p style={{ fontWeight: 600 }}>Idle assets</p>
+          <div className="list-card">
+            <h2>Idle assets</h2>
             {idleAssets.map((a) => (
-              <p key={a.name} style={{ fontSize: 13, color: "#555" }}>
-                {a.name}: {a.detail}
-              </p>
+              <div className="list-row" key={a.name}>
+                <span>{a.name}</span>
+                <span className="list-detail">{a.detail}</span>
+              </div>
             ))}
           </div>
         </div>
 
-        <div style={{ marginTop: 24 }}>
-          <p style={{ fontWeight: 600 }}>Assets due for maintenance / nearing retirement</p>
+        <div className="list-card">
+          <h2>Assets due for maintenance / nearing retirement</h2>
           {dueForAction.map((a) => (
-            <p key={a.name} style={{ fontSize: 13, color: "#555" }}>
-              {a.name}: {a.detail}
-            </p>
+            <div className="list-row" key={a.name}>
+              <span>{a.name}</span>
+              <span className="list-detail">{a.detail}</span>
+            </div>
           ))}
         </div>
 
-        <button
-          onClick={handleExport}
-          style={{ marginTop: 20, padding: "8px 16px", background: "#fbe0e0", border: "none", borderRadius: 8 }}
-        >
-          Export report
+        <button className="qa-btn" onClick={handleExport}>
+          <Download size={15} /> Export report
         </button>
       </div>
-    </div>
-  );
-}
-
-function Sidebar({ active }) {
-  const items = [
-    "Dashboard",
-    "Organization setup",
-    "Assets",
-    "Allocation & Transfer",
-    "Resource Booking",
-    "Maintenance",
-    "Audit",
-    "Reports",
-    "Notifications",
-  ];
-  return (
-    <div style={{ width: 180, borderRight: "1px solid #eee", padding: 16 }}>
-      {items.map((item) => (
-        <p
-          key={item}
-          style={{
-            padding: "6px 8px",
-            borderRadius: 6,
-            background: item === active ? "#d7f5e9" : "transparent",
-            fontWeight: item === active ? 600 : 400,
-          }}
-        >
-          {item}
-        </p>
-      ))}
-    </div>
+    </Layout>
   );
 }
