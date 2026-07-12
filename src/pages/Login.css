@@ -1,0 +1,88 @@
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #f5f5f5;
+}
+
+.login-card {
+  border: 2px solid #1a1a1a;
+  border-radius: 24px;
+  padding: 40px;
+  width: 420px;
+  background: #fff;
+}
+
+.login-title {
+  text-align: center;
+  font-size: 22px;
+  margin-bottom: 24px;
+}
+
+.login-logo {
+  width: 70px;
+  height: 70px;
+  border: 2px solid #1a1a1a;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 24px;
+  font-size: 18px;
+}
+
+.login-label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 15px;
+}
+
+.login-input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 16px;
+  border: 1.5px solid #1a1a1a;
+  border-radius: 8px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.forgot-link {
+  display: block;
+  text-align: right;
+  font-size: 13px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.divider {
+  border: none;
+  border-top: 1.5px solid #1a1a1a;
+  margin: 20px 0;
+}
+
+.signup-heading {
+  font-size: 16px;
+  margin-bottom: 4px;
+}
+
+.signup-note {
+  font-size: 13px;
+  color: #555;
+  margin-bottom: 16px;
+}
+
+.create-account-btn {
+  width: 100%;
+  padding: 14px;
+  border: 1.5px solid #1a1a1a;
+  border-radius: 8px;
+  background: #fff;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.create-account-btn:hover {
+  background: #f0f0f0;
+}
