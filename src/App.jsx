@@ -6,6 +6,9 @@ import OrgSetup from "./pages/OrgSetup";
 import Assets from "./pages/Assets";
 import Allocation from "./pages/Allocation";
 import Booking from "./pages/Booking";
+import Reports from "./pages/Reports";
+import Notifications from "./pages/Notifications";
+import Maintenance from "./pages/Maintenance";
 
 function App() {
   return (
@@ -18,6 +21,9 @@ function App() {
         <Route path="/assets" element={<Assets />} />
         <Route path="/allocation" element={<Allocation />} />
         <Route path="/booking" element={<Booking />} />
+        <Route path="/maintenance" element={<Maintenance />} />
+        <Route path="/reports" element={<Reports />} />
+        <Route path="/notifications" element={<Notifications />} />
       </Routes>
     </BrowserRouter>
   );
