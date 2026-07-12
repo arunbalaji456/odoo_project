@@ -1,15 +1,18 @@
 import { useState } from "react";
-import { Mail, Lock, Boxes } from "lucide-react";
-import "./Login.css";
 import { useNavigate } from "react-router-dom";
-export default function Login() {
+import { User, Mail, Lock, Boxes } from "lucide-react";
+import "./Login.css";
+
+export default function Signup() {
+  const navigate = useNavigate();
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Login attempt:", email);
+    console.log("Signup attempt:", { name, email });
+    // TODO: connect to backend signup endpoint (role fixed to 'employee' server-side)
   };
 
   return (
@@ -26,10 +29,25 @@ export default function Login() {
         </div>
 
         <div className="form-side">
-          <h2 className="form-heading">Welcome back</h2>
-          <p className="form-subheading">Sign in to your workspace</p>
+          <h2 className="form-heading">Create your account</h2>
+          <p className="form-subheading">
+            New accounts start as Employee — org admins grant elevated access later
+          </p>
 
           <form onSubmit={handleSubmit}>
+            <label className="field-label" htmlFor="name">Full name</label>
+            <div className="input-wrap">
+              <User size={16} className="input-icon" />
+              <input
+                id="name"
+                type="text"
+                placeholder="Jane Doe"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+              />
+            </div>
+
             <label className="field-label" htmlFor="email">Email</label>
             <div className="input-wrap">
               <Mail size={16} className="input-icon" />
@@ -49,33 +67,24 @@ export default function Login() {
               <input
                 id="password"
                 type="password"
-                placeholder="Enter your password"
+                placeholder="Create a password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
             </div>
 
-            <div className="row-end">
-              <a href="#" className="link-muted">Forgot password?</a>
-            </div>
-
-            <button type="submit" className="primary-btn">
-              Sign in
+            <button type="submit" className="primary-btn" style={{ marginTop: "8px" }}>
+              Create account
             </button>
           </form>
 
           <div className="divider">
-            <span>New here</span>
+            <span>Already registered</span>
           </div>
 
-          <p className="signup-note">
-            Signing up creates a standard employee account.
-            Admin and manager access is granted later by your organization's admin.
-          </p>
-
-          <button type="button" className="secondary-btn" onClick={() => navigate("/signup")}>
-            Create account
+          <button type="button" className="secondary-btn" onClick={() => navigate("/")}>
+            Back to sign in
           </button>
         </div>
       </div>
