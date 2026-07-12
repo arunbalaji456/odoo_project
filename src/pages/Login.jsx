@@ -1,15 +1,24 @@
 import { useState } from "react";
-import { Mail, Lock, Boxes } from "lucide-react";
-import "./Login.css";
 import { useNavigate } from "react-router-dom";
+import { Mail, Lock, Boxes } from "lucide-react";
+import { login } from "../utils/auth";
+import "./Login.css";
+
 export default function Login() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
+  const [error, setError] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Login attempt:", email);
+    setError("");
+    try {
+      login(email, password);
+      navigate("/dashboard");
+    } catch (err) {
+      setError(err.message);
+    }
   };
 
   return (
@@ -60,6 +69,12 @@ export default function Login() {
               <a href="#" className="link-muted">Forgot password?</a>
             </div>
 
+            {error && (
+              <p style={{ color: "red", fontSize: "13px", marginBottom: "10px" }}>
+                {error}
+              </p>
+            )}
+
             <button type="submit" className="primary-btn">
               Sign in
             </button>
@@ -74,7 +89,11 @@ export default function Login() {
             Admin and manager access is granted later by your organization's admin.
           </p>
 
-          <button type="button" className="secondary-btn" onClick={() => navigate("/signup")}>
+          <button
+            type="button"
+            className="secondary-btn"
+            onClick={() => navigate("/signup")}
+          >
             Create account
           </button>
         </div>

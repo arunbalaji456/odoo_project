@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { User, Mail, Lock, Boxes } from "lucide-react";
+import { signup } from "../utils/auth";
 import "./Login.css";
 
 export default function Signup() {
@@ -8,11 +9,17 @@ export default function Signup() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Signup attempt:", { name, email });
-    // TODO: connect to backend signup endpoint (role fixed to 'employee' server-side)
+    setError("");
+    try {
+      signup(name, email, password);
+      navigate("/dashboard");
+    } catch (err) {
+      setError(err.message);
+    }
   };
 
   return (
@@ -74,6 +81,12 @@ export default function Signup() {
               />
             </div>
 
+            {error && (
+              <p style={{ color: "red", fontSize: "13px", marginBottom: "10px" }}>
+                {error}
+              </p>
+            )}
+
             <button type="submit" className="primary-btn" style={{ marginTop: "8px" }}>
               Create account
             </button>
@@ -83,7 +96,11 @@ export default function Signup() {
             <span>Already registered</span>
           </div>
 
-          <button type="button" className="secondary-btn" onClick={() => navigate("/")}>
+          <button
+            type="button"
+            className="secondary-btn"
+            onClick={() => navigate("/")}
+          >
             Back to sign in
           </button>
         </div>
