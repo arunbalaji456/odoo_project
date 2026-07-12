@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Mail, Lock, Boxes } from "lucide-react";
 import "./Login.css";
 
 export default function Login() {
@@ -11,46 +12,71 @@ export default function Login() {
   };
 
   return (
-    <div className="login-container">
-      <div className="login-card">
-        <h1 className="login-title">AssetFlow — login</h1>
+    <div className="auth-screen">
+      <div className="auth-panel">
+        <div className="brand-side">
+          <div className="brand-mark">
+            <Boxes size={28} strokeWidth={2} />
+          </div>
+          <h1 className="brand-name">AssetFlow</h1>
+          <p className="brand-tagline">
+            Track every asset, allocation, and booking — in one place.
+          </p>
+        </div>
 
-        <div className="login-logo">AF</div>
+        <div className="form-side">
+          <h2 className="form-heading">Welcome back</h2>
+          <p className="form-subheading">Sign in to your workspace</p>
 
-        <form onSubmit={handleSubmit}>
-          <label className="login-label">Email</label>
-          <input
-            type="email"
-            placeholder="name@company.com"
-            className="login-input"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
+          <form onSubmit={handleSubmit}>
+            <label className="field-label" htmlFor="email">Email</label>
+            <div className="input-wrap">
+              <Mail size={16} className="input-icon" />
+              <input
+                id="email"
+                type="email"
+                placeholder="name@company.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </div>
 
-          <label className="login-label">Password</label>
-          <input
-            type="password"
-            placeholder="••••••••••"
-            className="login-input"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
+            <label className="field-label" htmlFor="password">Password</label>
+            <div className="input-wrap">
+              <Lock size={16} className="input-icon" />
+              <input
+                id="password"
+                type="password"
+                placeholder="Enter your password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </div>
 
-          <a href="#" className="forgot-link">Forgot password</a>
+            <div className="row-end">
+              <a href="#" className="link-muted">Forgot password?</a>
+            </div>
 
-          <hr className="divider" />
+            <button type="submit" className="primary-btn">
+              Sign in
+            </button>
+          </form>
 
-          <p className="signup-heading">New here?</p>
+          <div className="divider">
+            <span>New here</span>
+          </div>
+
           <p className="signup-note">
-            Sign up creates an employee account — admin roles assigned later
+            Signing up creates a standard employee account.
+            Admin and manager access is granted later by your organization's admin.
           </p>
 
-          <button type="submit" className="create-account-btn">
-            Create Account
+          <button type="button" className="secondary-btn">
+            Create account
           </button>
-        </form>
+        </div>
       </div>
     </div>
   );

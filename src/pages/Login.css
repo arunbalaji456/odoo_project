@@ -1,88 +1,199 @@
-.login-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  background: #f5f5f5;
-}
-
-.login-card {
-  border: 2px solid #1a1a1a;
-  border-radius: 24px;
-  padding: 40px;
-  width: 420px;
-  background: #fff;
-}
-
-.login-title {
-  text-align: center;
-  font-size: 22px;
-  margin-bottom: 24px;
-}
-
-.login-logo {
-  width: 70px;
-  height: 70px;
-  border: 2px solid #1a1a1a;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 24px;
-  font-size: 18px;
-}
-
-.login-label {
-  display: block;
-  margin-bottom: 6px;
-  font-size: 15px;
-}
-
-.login-input {
-  width: 100%;
-  padding: 12px;
-  margin-bottom: 16px;
-  border: 1.5px solid #1a1a1a;
-  border-radius: 8px;
-  font-size: 14px;
+* {
   box-sizing: border-box;
 }
 
-.forgot-link {
-  display: block;
-  text-align: right;
-  font-size: 13px;
-  color: #333;
+.auth-screen {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f4f5f7;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  padding: 24px;
+}
+
+.auth-panel {
+  display: flex;
+  width: 880px;
+  max-width: 100%;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(20, 20, 43, 0.12);
+  background: #fff;
+}
+
+/* Left branding panel */
+.brand-side {
+  flex: 1;
+  background: linear-gradient(160deg, #1f2544 0%, #3a3f8c 100%);
+  color: #fff;
+  padding: 48px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.brand-mark {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin-bottom: 20px;
 }
 
-.divider {
-  border: none;
-  border-top: 1.5px solid #1a1a1a;
-  margin: 20px 0;
+.brand-name {
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0 0 12px;
 }
 
-.signup-heading {
-  font-size: 16px;
-  margin-bottom: 4px;
+.brand-tagline {
+  font-size: 14px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.75);
+  margin: 0;
+  max-width: 260px;
+}
+
+/* Right form panel */
+.form-side {
+  flex: 1;
+  padding: 48px 44px;
+}
+
+.form-heading {
+  font-size: 22px;
+  font-weight: 700;
+  margin: 0 0 4px;
+  color: #14142b;
+}
+
+.form-subheading {
+  font-size: 13.5px;
+  color: #6b6f85;
+  margin: 0 0 28px;
+}
+
+.field-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: #383b53;
+  margin-bottom: 6px;
+}
+
+.input-wrap {
+  position: relative;
+  margin-bottom: 18px;
+}
+
+.input-icon {
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  transform: translateY(-50%);
+  color: #9497ab;
+}
+
+.input-wrap input {
+  width: 100%;
+  padding: 11px 12px 11px 36px;
+  border: 1.5px solid #e1e2ea;
+  border-radius: 10px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.input-wrap input:focus {
+  border-color: #3a3f8c;
+}
+
+.row-end {
+  text-align: right;
+  margin-bottom: 22px;
+}
+
+.link-muted {
+  font-size: 12.5px;
+  color: #6b6f85;
+  text-decoration: none;
+}
+
+.link-muted:hover {
+  color: #3a3f8c;
+  text-decoration: underline;
+}
+
+.primary-btn {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  background: #3a3f8c;
+  color: #fff;
+  font-size: 14.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.primary-btn:hover {
+  background: #2e3270;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 26px 0 16px;
+  color: #a3a5b8;
+  font-size: 12px;
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  border-bottom: 1px solid #e6e7ee;
+}
+
+.divider span {
+  padding: 0 10px;
 }
 
 .signup-note {
-  font-size: 13px;
-  color: #555;
-  margin-bottom: 16px;
+  font-size: 12.5px;
+  color: #6b6f85;
+  line-height: 1.5;
+  margin: 0 0 16px;
 }
 
-.create-account-btn {
+.secondary-btn {
   width: 100%;
-  padding: 14px;
-  border: 1.5px solid #1a1a1a;
-  border-radius: 8px;
+  padding: 12px;
+  border: 1.5px solid #d9dae6;
+  border-radius: 10px;
   background: #fff;
-  font-size: 15px;
+  color: #14142b;
+  font-size: 14px;
+  font-weight: 600;
   cursor: pointer;
+  transition: background 0.15s ease;
 }
 
-.create-account-btn:hover {
-  background: #f0f0f0;
+.secondary-btn:hover {
+  background: #f6f6fa;
+}
+
+@media (max-width: 720px) {
+  .auth-panel {
+    flex-direction: column;
+  }
+  .brand-side {
+    padding: 32px;
+  }
 }
