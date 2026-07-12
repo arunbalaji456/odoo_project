@@ -8,8 +8,6 @@ const initialNotifications = [
   { id: 2, type: "Approvals", text: "Maintenance request AF-0055 approved", time: "18m ago", read: false },
   { id: 3, type: "Bookings", text: "Booking confirmed: Room B2, 2:00 to 3:00 PM", time: "1h ago", read: false },
   { id: 4, type: "Approvals", text: "Transfer approved: AF-0033 to Facilities dept", time: "3h ago", read: true },
-  { id: 5, type: "Alerts", text: "Overdue return: AF-0021", time: "1d ago", read: true },
-  { id: 6, type: "Alerts", text: "Audit discrepancy flagged: AF-0088 damaged", time: "2d ago", read: true },
 ];
 
 const tabs = ["All", "Alerts", "Approvals", "Bookings"];

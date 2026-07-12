@@ -1,4 +1,6 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { LogOut } from "lucide-react";
+import { getCurrentUser, logout } from "../utils/auth";
 import "./Sidebar.css";
 
 const navItems = [
@@ -14,9 +16,18 @@ const navItems = [
 ];
 
 export default function Sidebar() {
+  const navigate = useNavigate();
+  const currentUser = getCurrentUser();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/");
+  };
+
   return (
     <div className="sidebar">
       <div className="sidebar-logo">AssetFlow</div>
+
       <nav className="sidebar-nav">
         {navItems.map((item) => (
           <NavLink
@@ -30,6 +41,23 @@ export default function Sidebar() {
           </NavLink>
         ))}
       </nav>
+
+      <div className="sidebar-footer">
+        {currentUser && (
+          <div className="sidebar-user">
+            <div className="sidebar-avatar">
+              {currentUser.name?.slice(0, 2).toUpperCase()}
+            </div>
+            <div>
+              <div className="sidebar-user-name">{currentUser.name}</div>
+              <div className="sidebar-user-role">{currentUser.role}</div>
+            </div>
+          </div>
+        )}
+        <button className="sidebar-logout" onClick={handleLogout}>
+          <LogOut size={15} /> Log out
+        </button>
+      </div>
     </div>
   );
 }
