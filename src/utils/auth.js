@@ -33,7 +33,15 @@ export function login(email, password) {
 }
 
 export function getCurrentUser() {
-  return JSON.parse(localStorage.getItem("currentUser") || "null");
+  const raw = localStorage.getItem("currentUser");
+  if (!raw || raw === "undefined" || raw === "null") {
+    return null;
+  }
+  try {
+    return JSON.parse(raw);
+  } catch {
+    return null;
+  }
 }
 
 export function logout() {
